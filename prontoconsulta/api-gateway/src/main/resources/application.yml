@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux: 
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            # Rotas para service-pacientes
+            - id: service-pacientes
+              uri: lb://SERVICE-PACIENTES
+              predicates:
+                - Path=/pacientes/**
+            
+            # Rotas para service-medicos
+            - id: service-medicos
+              uri: lb://SERVICE-MEDICOS
+              predicates:
+                - Path=/medicos/**
+            
+            # Rotas para service-consultas
+            - id: service-consultas
+              uri: lb://SERVICE-CONSULTAS
+              predicates:
+                - Path=/consultas/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+    ip-address: 127.0.0.1

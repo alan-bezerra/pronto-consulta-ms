@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db-medicos:
+    image: mysql:8.0
+    container_name: db_prontoconsulta_medicos
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_prontoconsulta_medicos
+      MYSQL_USER: medicos_user
+      MYSQL_PASSWORD: medicos_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data_medicos:/var/lib/mysql
+
+volumes:
+  mysql_data_medicos:
+    driver: local

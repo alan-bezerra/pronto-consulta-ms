@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db-pacientes:
+    image: mysql:8.0
+    container_name: db_prontoconsulta_pacientes
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_prontoconsulta_pacientes
+      MYSQL_USER: pacientes_user
+      MYSQL_PASSWORD: pacientes_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_pacientes:/var/lib/mysql
+
+volumes:
+  mysql_data_pacientes:
+    driver: local
